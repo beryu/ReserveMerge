@@ -11,7 +11,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://github.com/*"
+        "https://github.com/*/*/pull/*"
       ],
       "css": [],
       "js": ["js/content_scripts/common.js"]

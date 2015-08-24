@@ -7,6 +7,9 @@
     
     var reservedStatusChangeHandler = function () {
         var reserveMergeButton = document.getElementById('blk-reserve-merge');
+        if (!reserveMergeButton) {
+        	return;
+        }
         if (isReserved) {
             reserveMergeButton.innerHTML = mergeButtonDisabledLabel;
         } else {
@@ -25,7 +28,10 @@
         isReserved = !isReserved;
         reservedStatusChangeHandler();
     }, false);
-    document.querySelector('.merge-message').insertBefore(button, document.querySelector('.js-merge-branch-action').nextSibling);
+    var mergeMessageElement = document.querySelector('.merge-message');
+    if (mergeMessageElement) {
+        mergeMessageElement.insertBefore(button, document.querySelector('.js-merge-branch-action').nextSibling);
+    }
 
     document.body.addEventListener("DOMSubtreeModified", function(event) {
     	reservedStatusChangeHandler();
