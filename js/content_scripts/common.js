@@ -5,6 +5,28 @@
         mergeButtonEnabledLabel = 'Merge when passing all check',
         mergeButtonDisabledLabel = 'Cancel merge when passing all check';
     
+    var layoutReserveMergeButton = function () {
+        if (document.getElementById('blk-reserve-merge')) {
+        	return;
+        }
+
+        // Layout reserve merge button
+        var button = document.createElement('button');
+        button.className = 'btn';
+        button.type = 'button';
+        button.style.marginLeft = '15px';
+        button.id = 'blk-reserve-merge';
+        button.innerHTML = mergeButtonEnabledLabel;
+        button.addEventListener('click', function () {
+            isReserved = !isReserved;
+            reservedStatusChangeHandler();
+        }, false);
+        var mergeMessageElement = document.querySelector('.merge-message');
+        if (mergeMessageElement) {
+            mergeMessageElement.insertBefore(button, document.querySelector('.js-merge-branch-action').nextSibling);
+        }
+    };
+    
     var reservedStatusChangeHandler = function () {
         var reserveMergeButton = document.getElementById('blk-reserve-merge');
         if (!reserveMergeButton) {
@@ -17,23 +39,8 @@
         }
     };
 
-    // Layout reserve merge button
-    var button = document.createElement('button');
-    button.className = 'btn';
-    button.type = 'button';
-    button.style.marginLeft = '15px';
-    button.id = 'blk-reserve-merge';
-    button.innerHTML = mergeButtonEnabledLabel;
-    button.addEventListener('click', function () {
-        isReserved = !isReserved;
-        reservedStatusChangeHandler();
-    }, false);
-    var mergeMessageElement = document.querySelector('.merge-message');
-    if (mergeMessageElement) {
-        mergeMessageElement.insertBefore(button, document.querySelector('.js-merge-branch-action').nextSibling);
-    }
-
     document.body.addEventListener("DOMSubtreeModified", function(event) {
+        layoutReserveMergeButton();
     	reservedStatusChangeHandler();
 
         if (!isReserved) {
@@ -52,4 +59,6 @@
             mergeButtonElement.click()
         }
     });
+
+    layoutReserveMergeButton();
 })();
