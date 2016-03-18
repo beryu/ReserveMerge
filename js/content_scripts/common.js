@@ -53,7 +53,7 @@
             document.querySelector('.js-merge-branch-action').click();
         }
 
-        var mergeButtonElement = document.querySelector('.btn-primary[data-disable-with="Merging..."]');
+        var mergeButtonElement = document.querySelector('.btn-primary[data-disable-with="Merging…"]');
         if (isMergeStarted && !isMerged && mergeButtonElement) {
             isMerged = true;
             mergeButtonElement.click()
